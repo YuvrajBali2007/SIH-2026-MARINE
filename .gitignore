@@ -88,3 +88,5 @@ pnpm-debug.log*
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
+.vercel
+.env*
