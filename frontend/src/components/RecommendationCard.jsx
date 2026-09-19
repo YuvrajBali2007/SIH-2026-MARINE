@@ -1,0 +1,15 @@
+import { ArrowDownRight, CalendarClock, CheckCircle2, Sparkles } from 'lucide-react'
+
+const RecommendationCard = ({ data }) => {
+  const t = data?.timing_decision || {}
+  const defer = t.decision === 'DEFER'
+  return <section className="rounded-2xl border border-slate-200 bg-white shadow-sm">
+    <div className="flex flex-col justify-between gap-4 border-b border-slate-200 bg-gradient-to-r from-slate-50 to-white p-5 sm:flex-row sm:items-center sm:px-6"><div><div className="flex items-center gap-2"><Sparkles size={18} className="text-orange-500" /><h2 className="text-base font-black text-[#0a2440]">AI Fixture Recommendation</h2></div><p className="mt-1 text-xs text-slate-500">Charter timing recommendation from the GBR + Linear Regression ensemble</p></div><div className="rounded-xl border border-orange-200 bg-orange-50 px-4 py-2"><p className="text-[10px] font-extrabold uppercase tracking-wide text-orange-600">Optimal Timing</p><p className="text-lg font-black text-orange-700">T+{t.optimal_t_star ?? '—'}</p></div></div>
+    <div className="grid gap-5 p-5 sm:p-6 lg:grid-cols-[1.4fr_1fr]">
+      <div className={`rounded-2xl border p-5 ${defer ? 'border-emerald-200 bg-emerald-50' : 'border-sky-200 bg-sky-50'}`}><div className="flex gap-4"><div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${defer ? 'bg-emerald-600 text-white' : 'bg-sky-600 text-white'}`}>{defer ? <ArrowDownRight size={23} /> : <CheckCircle2 size={23} />}</div><div><p className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">Recommended Action</p><h3 className="mt-1 text-2xl font-black text-[#0a2440]">{defer ? 'DEFER FIXTURE' : 'EXECUTE NOW'}</h3><p className="mt-2 text-sm font-semibold text-slate-600">{t.decision_label || 'Model recommendation available after optimization.'}</p></div></div></div>
+      <div className="grid grid-cols-2 gap-3"><Metric label="Current Rate" value={t.current_rate == null ? '—' : `$${Number(t.current_rate).toLocaleString()}`} /><Metric label="Forecast Rate" value={t.predicted_future == null ? '—' : `$${Number(t.predicted_future).toLocaleString()}`} /><div className="col-span-2 rounded-xl border border-slate-200 bg-slate-50 p-4"><div className="flex items-center gap-2 text-slate-500"><CalendarClock size={15} /><span className="text-[10px] font-extrabold uppercase tracking-wide">Estimated Savings If Wait</span></div><p className="mt-2 text-xl font-black text-[#0a2440]">{t.savings_if_wait == null ? '—' : `$${Number(t.savings_if_wait).toLocaleString()}`}</p></div></div>
+    </div>
+  </section>
+}
+const Metric = ({ label, value }) => <div className="rounded-xl border border-slate-200 p-4"><p className="text-[10px] font-extrabold uppercase tracking-wide text-slate-500">{label}</p><p className="mt-2 text-lg font-black text-[#0a2440]">{value}</p></div>
+export default RecommendationCard

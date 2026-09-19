@@ -1,0 +1,12 @@
+import { Area, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+
+const ForecastChart = ({ data }) => {
+  const f = data?.freight_forecast || {}
+  const b = data?.fuel_forecast || {}
+  const rows = (f.dates || []).map((date, i) => ({ day: `T+${i}`, freight: f.mean?.[i], lower: f.lower?.[i], upper: f.upper?.[i], bunker: b.price?.[i] }))
+  return <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+    <div className="mb-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-start"><div><h2 className="text-base font-black text-[#0a2440]">14-Day Freight & Bunker Forecast</h2><p className="mt-1 text-xs text-slate-500">XGBoost freight projection with uncertainty band and bunker-price trend</p></div><div className="rounded-xl border border-orange-200 bg-orange-50 px-3 py-2"><p className="text-[10px] font-extrabold uppercase text-orange-600">Optimal Timing</p><p className="text-base font-black text-orange-700">T+{data?.optimal_t_star ?? '—'}</p></div></div>
+    {rows.length ? <div className="h-[340px] w-full"><ResponsiveContainer width="100%" height="100%"><ComposedChart data={rows} margin={{ top: 8, right: 8, left: -10, bottom: 5 }}><CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" /><XAxis dataKey="day" tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} /><YAxis yAxisId="freight" tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} width={45} /><YAxis yAxisId="bunker" orientation="right" tick={{ fontSize: 10, fill: '#64748b' }} axisLine={false} tickLine={false} width={45} /><Tooltip contentStyle={{ borderRadius: 12, border: '1px solid #e2e8f0' }} /><Area yAxisId="freight" type="monotone" dataKey="upper" stroke="none" fill="#dbeafe" fillOpacity={0.8} /><Area yAxisId="freight" type="monotone" dataKey="lower" stroke="none" fill="#fff" fillOpacity={1} /><Line yAxisId="freight" type="monotone" dataKey="freight" name="Freight USD/t" stroke="#1261a0" strokeWidth={3} dot={{ r: 2.5 }} /><Line yAxisId="bunker" type="monotone" dataKey="bunker" name="Bunker USD/t" stroke="#f28c28" strokeWidth={2.5} dot={false} /></ComposedChart></ResponsiveContainer></div> : <div className="flex h-[340px] items-center justify-center rounded-xl bg-slate-50 text-sm text-slate-500">Run optimization to generate the forecast.</div>}
+  </section>
+}
+export default ForecastChart

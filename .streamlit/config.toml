@@ -1,0 +1,24 @@
+# Streamlit Community Cloud — app configuration
+# See: https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-settings
+
+[app]
+entry_point = "app.py"
+
+[server]
+headless = true
+enableCORS = false
+enableXsrfProtection = true
+
+[runner]
+# Suppress module-level warnings from sklearn / xgboost training on startup
+magicEnabled = false
+
+[browser]
+gatherUsageStats = false
+
+[theme]
+base = "dark"
+backgroundColor = "#0f172a"
+secondaryBackgroundColor = "#1e293b"
+textColor = "#e2e8f0"
+font = "sans serif"

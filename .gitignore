@@ -1,0 +1,90 @@
+# ── Python cache & bytecode ────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+*.pyo
+*.pyd
+
+# ── Virtual environments ─────────────────────────────────────────────────
+venv/
+.venv/
+env/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# ── Environment variables / secrets ──────────────────────────────────────
+.env
+.env.*
+*.env
+secrets.toml
+.streamlit/secrets.toml
+
+# ── macOS ─────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ── Windows ───────────────────────────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# ── Jupyter / IPython ─────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Model training checkpoints & temp artifacts ───────────────────────────
+*.ckpt
+*.checkpoint
+*.log
+runs/
+checkpoints/
+outputs/
+
+# ── IDE / editor directories ──────────────────────────────────────────────
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.classpath
+
+# ── Distribution / packaging ──────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg
+MANIFEST
+
+# ── Coverage / test artifacts ─────────────────────────────────────────────
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+
+# ── Local Streamlit cache ─────────────────────────────────────────────────
+.streamlit/cache/
+
+# ── Frontend dependencies & build ─────────────────────────────────────────
+frontend/node_modules/
+frontend/dist/
+
+# ── Node / npm local files ────────────────────────────────────────────────
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── Vercel local files ────────────────────────────────────────────────────
+.vercel/
+
+# ── Local Python tooling ──────────────────────────────────────────────────
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
