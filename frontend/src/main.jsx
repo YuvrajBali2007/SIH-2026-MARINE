@@ -1,10 +1,21 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
+import React, { useEffect } from 'react'
+import ReactDOM from 'react-dom/client'
+import { Streamlit, withStreamlitConnection } from 'streamlit-component-lib'
 import App from './App'
+import './index.css'
 
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <App />
-  </StrictMode>,
+const StreamlitApp = withStreamlitConnection(() => {
+  useEffect(() => {
+    Streamlit.setFrameHeight()
+  })
+
+  return <App />
+})
+
+Streamlit.setComponentReady()
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <StreamlitApp />
+  </React.StrictMode>,
 )
